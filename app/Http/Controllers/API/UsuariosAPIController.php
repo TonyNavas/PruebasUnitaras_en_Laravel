@@ -71,7 +71,7 @@ class UsuariosAPIController extends Controller
         $usuario->update($request->all());
         return response()->json([
             'res'=>true,
-            'mensaje'=>'Usuario actualizada exitosamente'
+            'mensaje'=>'Usuario actualizado exitosamente'
         ],200); 
     }
 
@@ -86,7 +86,7 @@ class UsuariosAPIController extends Controller
         $usuario->delete();
         return response()->json([
             'res'=>true,
-            'mensaje'=>'Usuario Eliminada exitosamente'
+            'mensaje' => 'Usuario eliminado exitosamente',
         ]);
     }
 }
