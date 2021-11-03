@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditarUsuarioRequest;
+use App\Http\Requests\GuardarUsuarioRequest;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
 
@@ -35,7 +37,7 @@ class UsuariosAPIController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarUsuarioRequest $request)
     {
         Usuarios::create($request->all());
         return response()->json([
@@ -57,18 +59,6 @@ class UsuariosAPIController extends Controller
             'data'=>$usuario
         ]); 
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -76,7 +66,7 @@ class UsuariosAPIController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuarios $usuario)
+    public function update(EditarUsuarioRequest $request, Usuarios $usuario)
     {
         $usuario->update($request->all());
         return response()->json([
