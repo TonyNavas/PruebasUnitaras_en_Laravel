@@ -1,65 +1,94 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Pruebas unitarias en laravel
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+para dar solucion a este ejercicio se crea un nuevo proyecto de laravel al que llamaremos test-app.
+````
+laravel new test-app
+````
 
-## About Laravel
+![alt text](Capturas\1.png)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+luego de haber creado el proyecto, generamos la migracion de la tabla de base de datos, en este caso Usuarios, yo uso el siguiente comando porque genera la migracion, el modelo y el controlador.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+````
+Php artisan make:model Usuarios -mcr
+````
+Luego de que se cree la migracion, hacemos los campos que llevara la tabla.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![alt text](Capturas\2.PNG)
 
-## Learning Laravel
+El siguiente paso es crear los metodos en el controlador del modelo de usuarios, para crear el controlador que realizara las operaciones CRUD por medio de API, cree una carpeta API en la carpeta controller y ahi se crea el controlador.
+```
+php artisan make:controller API/UsuariosAPIController
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Dentro de la funcion index creamos el codigo para que nos muestre los usuarios.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+![alt text](Capturas\3.PNG)
 
-## Laravel Sponsors
+Para poder probar que los usuarios se muestran correctamente primero debemos añadir la ruta en la carpeta routes y el fichero api.php, utilizamos un metodo de tipo get para obtener los usuarios y llamamos la función index.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+![alt text](Capturas\4.PNG)
 
-### Premium Partners
+Ahora accedemos a la url, aqui aparece un usuario agregado porque se agrego de forma manual en la base de datos luego de migrar la tabla.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+![alt text](Capturas\5.PNG)
 
-## Contributing
+Ahora en las demas funciones del controlador de usuarios, creamos el codigo para cuando se ingrese un usuario por medio de la api.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+El request de arriba "GuardarUsuarioRequest" se encarga de validar los campos que se van a recibir.
 
-## Code of Conduct
+![alt text](Capturas\6.PNG)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Aqui se pueden ver los campos del request:
 
-## Security Vulnerabilities
+![alt text](Capturas\7.PNG)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Para la funcion update tambien se debe crear un request igual al anterior y con los mismos campos ya que solo se encarga de validar los campos que se reciben.
 
-## License
+![alt text](Capturas\8.PNG)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+En la funcion destroy no es necesario crear un request ya que los datos se eliminan mediante el ID.
+
+![alt text](Capturas\9.PNG)
+
+Ahora para poder usar todas estas funciones y realizar las operaciones de CRUD mediante API debemos ir al fichero de rutas api.php y añadir las rutas, el metodo y la funcion.
+
+Cada una de las rutas tiene un metodo diferente, el post se usa para la inserción de datos y este se encuentra en la funcion store, el metodo put se encarga de actualizar o modificar los datos y se encuentra en la funcion update, el metodo get se utiliza para mostrar los datos y esta en la función show y el metoddo delete se utiliza para eliminar los datos y esta en la funcion destroy.
+
+![alt text](Capturas\10.PNG)
+
+Para probar las operaciones de CRUD mediante API se utiliza la aplicacion Postman.
+
+Ponemos la url de la API en postman y probamos el metodo GET
+
+![alt text](Capturas\11.PNG)
+
+Podemos ver que obtinene los datos desde la API:
+
+![alt text](Capturas\12.PNG)
+
+Ahora probamos el metodo POST para insertar un nuevo usuario, para eso debemos escribir codigo con los campos que recibe la base de datos en formato JSON.
+
+Seleccionamos el metodo POST, enviamos los datos y podemos ver que nos devuelve un mensaje de que el usuario se guardo con exito.
+
+![alt text](Capturas\13.PNG)
+
+Podemos ver el nuevo usuario:
+
+![alt text](Capturas\14.PNG)
+
+Ahora para editar un usuario debemos pasar el ID del usuario que queremos modificar.
+
+![alt text](Capturas\15.PNG)
+
+Podemos ver el usuario modificado:
+
+![alt text](Capturas\16.PNG)
+
+Y el ultimo metodo DELETE para eliminar un usuario, igual le pasamos el ID en la url.
+
+![alt text](Capturas\17.PNG)
+
+Podemos ver que ya no esta el usuario:
+
+![alt text](Capturas\18.PNG)
