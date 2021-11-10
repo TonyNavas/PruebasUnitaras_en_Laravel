@@ -39,7 +39,7 @@ class UsuariosAPIController extends Controller
      */
     public function store(GuardarUsuarioRequest $request)
     {
-        Usuarios::create($request->all());
+        Usuarios::make($request->all());
         return response()->json([
             'res'=>true,
             'mensaje'=>'Usuario guardado exitosamente'
@@ -68,7 +68,7 @@ class UsuariosAPIController extends Controller
      */
     public function update(EditarUsuarioRequest $request, Usuarios $usuario)
     {
-        $usuario->update($request->all());
+        $usuario->make($request->all());
         return response()->json([
             'res'=>true,
             'mensaje'=>'Usuario actualizado exitosamente'
@@ -83,7 +83,7 @@ class UsuariosAPIController extends Controller
      */
     public function destroy(Usuarios $usuario)
     {
-        $usuario->delete();
+        $usuario->make();
         return response()->json([
             'res'=>true,
             'mensaje' => 'Usuario eliminado exitosamente',
