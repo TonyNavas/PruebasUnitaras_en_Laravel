@@ -4,9 +4,14 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 
 class ExampleTest extends TestCase
 {
+    use WithoutMiddleware;
+    use DatabaseTransactions;
     /**
      * A basic test example.
      *
@@ -20,9 +25,9 @@ class ExampleTest extends TestCase
     }
     public function test_update()
     {
-        $response = $this->put('/api/usuarios/7', 
-        ['nombre' => 'cesar',
-         'email' => 'cesar@gmail.com',
+        $response = $this->put('/api/usuarios/8', 
+        ['nombre' => 'cesar1',
+         'email' => 'cesar1@gmail.com',
          'password' => '12345678']);
 
         $response
@@ -34,7 +39,7 @@ class ExampleTest extends TestCase
 
     public function test_delete()
     {
-        $response = $this->delete('/api/usuarios/3');
+        $response = $this->delete('/api/usuarios/7');
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -61,8 +66,8 @@ class ExampleTest extends TestCase
     public function test_store()
     {
         $response = $this->post('/api/usuarios', 
-        ['nombre' => 'tony',
-         'email' => 'tony@gmail.com',
+        ['nombre' => 'tony10',
+         'email' => 'tony10@gmail.com',
          'password' => '12345678']);
 
         $response
